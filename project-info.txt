@@ -1,0 +1,91 @@
+frontend:
+
+# frontend is the service in RoboShop to serve the web content over Nginx. 
+
+# This will have the webframe for the web application.
+
+# This is a static content and to serve static content we need a web server. This server
+
+# developer has chosen Nginx as a web server and thus we will install Nginx Web Server.
+
+# Nginx is a popular web server and reverse proxy server.
+
+# A reverse proxy is a server that sits between client devices and a web server, 
+
+# forwarding client requests to the server and returning the server's responses to the clients.
+
+mongodb:
+
+# MongoDB is a popular open-source NoSQL database management system that stores data in a flexible, 
+
+# JSON-like format known as BSON (Binary JSON).It is designed to handle large amounts of unstructured 
+
+# or semi-structured data and is particularly well-suited for applications with rapidly changing data models.
+
+catalogue:
+
+# Catalogue is a microservice that is responsible for serving the list of items 
+
+# that displays in roboshop application.
+
+redis:
+
+# Redis is an open-source, in-memory data structure store that can be used as a database, cache, 
+
+# and message broker. It is often referred to as a "data structure server" 
+
+# because it allows you to store and manipulate data structures like strings, hashes, lists, sets, and more.
+
+user:
+
+# User is a microservice that is responsible for user logins and registrations.
+
+# It gets the user information from mongodb and redis.
+
+cart:
+
+# Cart is a microservice that is responsible for Cart Service in RobotShop.
+
+# We can add the items in the cart only if the items are displayed in the catalogue. and catalogue gets the 
+
+# items from redis. So cart service depends on catalogue and redis.
+
+shipping:
+
+# Shipping service is responsible for finding the distance of the package to be shipped and 
+
+# calculate the price based on that.
+
+# to get the list of countries and location in shipping information we use mysql database.
+
+# so shipping service depends on cart and mysql.
+
+mysql:
+
+# For storing the shipping details information.
+
+rabbitmq:
+
+# RabbitMQ is a messaging queue which is used by payment service.
+
+# After the payment is done we have the information about the product they ordered.
+
+# That information is given to rabbitmq by payment and rabbitmq ensures that the message will be displayed 
+
+# after the payment is done whether it is failed and success.
+
+payment:
+
+# This service is responsible for payments in RoboShop
+
+# This service depends on user, cart, and rabbitmq services.
+
+
+
+
+
+ 
+
+
+
+

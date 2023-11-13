@@ -1,0 +1,81 @@
+networks:
+  roboshop:
+    driver: bridge   # this networks portion will create the network.
+services:
+  mongodb:
+    image: mongodb:v1
+    container_name: mongodb
+    networks:
+      - roboshop
+  catalogue:
+    image: catalogue:v1
+    container_name: catalogue
+    networks:
+      - roboshop
+    depends_on:
+      - mongodb
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - roboshop
+  user:
+    image: user:v1
+    container_name: user
+    networks:
+      - roboshop
+    depends_on:
+      - redis  
+      - mongodb    
+  cart:
+    image: cart:v1
+    container_name: cart
+    networks:
+      - roboshop
+    depends_on:
+      - redis
+      - catalogue   
+  mysql:
+    image: mysql:v1
+    container_name: mysql
+    networks:
+      - roboshop     
+  shipping:
+    image: shipping:v1
+    container_name: shipping
+    networks:
+      - roboshop
+    depends_on:
+      - cart
+      - mysql 
+  rabbitmq:
+    image: rabbitmq
+    container_image: rabbitmq
+    networks:
+      - roboshop
+    environment:
+      - RABBITMQ_DEFAULT_USER=roboshop
+      - RABBITMQ_DEFAULT_PASS=roboshop123      
+  payment:
+    image: payment:v1
+    container_name: payment
+    networks:
+      - roboshop
+    depends_on:
+      - cart
+      - user
+      - rabbitmq                 
+  web:
+    image: web:v1
+    container_name: web
+    networks:
+      - roboshop  
+    ports: 
+      - "80:80"  
+    depends_on:
+      - catalogue
+      - user
+      - cart
+      - shipping
+      - payment       
+
