@@ -36,7 +36,7 @@ services:
       - redis
       - catalogue   
   mysql:
-    image: 656778/mysql:v1
+    image: 656788/mysql:v1
     container_name: mysql
     networks:
       - roboshop     
