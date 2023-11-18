@@ -50,7 +50,7 @@ services:
       - mysql 
   rabbitmq:
     image: rabbitmq
-    container_image: rabbitmq
+    container_name: rabbitmq
     networks:
       - roboshop
     environment:
