@@ -1,12 +1,21 @@
 networks:
   roboshop:
     driver: bridge   # this networks portion will create the network.
+volumes:
+  mongodb:
+  redis:
+  mysql:
+  rabbitmq:    
 services:
   mongodb:
     image: 656788/mongodb:v1
     container_name: mongodb
     networks:
       - roboshop
+    volumes:
+      - source: mongodb
+        target: /data/db
+        type: volume  
   catalogue:
     image: 656788/catalogue:v1
     container_name: catalogue
@@ -19,6 +28,10 @@ services:
     container_name: redis
     networks:
       - roboshop
+    volumes:
+      - source: redis
+        target: /data
+        type: volume  
   user:
     image: 656788/user:v1
     container_name: user
@@ -39,7 +52,10 @@ services:
     image: 656788/mysql:v1
     container_name: mysql
     networks:
-      - roboshop     
+      - roboshop  
+    volumes:
+      - source: mysql
+        target: /var/lib/mysql    
   shipping:
     image: 656788/shipping:v1
     container_name: shipping
@@ -53,6 +69,10 @@ services:
     container_name: rabbitmq
     networks:
       - roboshop
+    volumes:
+      - source: rabbitmq
+        target: /var/lib/rabbitmq
+        type: volume  
     environment:
       - RABBITMQ_DEFAULT_USER=roboshop
       - RABBITMQ_DEFAULT_PASS=roboshop123      
