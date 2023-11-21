@@ -55,7 +55,8 @@ services:
       - roboshop  
     volumes:
       - source: mysql
-        target: /var/lib/mysql    
+        target: /var/lib/mysql 
+        type: volume   
   shipping:
     image: 656788/shipping:v1
     container_name: shipping
