@@ -100,3 +100,10 @@ services:
       - shipping
       - payment       
 
+# docker-compose up -d ---> creates all the above containers
+# after creating the containers, login into roboshop app and order any product.
+# now delete all the above resources using docker-compose down command.
+# docker-compose up -d ---> creates the containers again.
+# now login into the roboshop app and find your order id still exists because of the volumes that we have 
+# attached to the containers.
+
